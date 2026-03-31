@@ -10,7 +10,7 @@ func TestFlattenMachineConfigV2Linode(t *testing.T) {
 	input := &MachineConfigV2Linode{
 		machineConfigV2Linode: machineConfigV2Linode{
 			AuthorizedUsers:           "user1,user2",
-			CreatePrivateIP:           true,
+			CreatePrivateIP:           false,
 			DockerPort:                "2377",
 			Image:                     "linode/ubuntu22.04",
 			InstanceType:              "g6-standard-2",
@@ -37,7 +37,7 @@ func TestFlattenMachineConfigV2Linode(t *testing.T) {
 	expected := []interface{}{
 		map[string]interface{}{
 			"authorized_users":             "user1,user2",
-			"create_private_ip":            true,
+			"create_private_ip":            false,
 			"docker_port":                  "2377",
 			"image":                        "linode/ubuntu22.04",
 			"instance_type":                "g6-standard-2",
