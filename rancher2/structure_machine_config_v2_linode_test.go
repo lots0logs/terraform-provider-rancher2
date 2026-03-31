@@ -1,6 +1,7 @@
 package rancher2
 
 import (
+	"encoding/base64"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -21,7 +22,7 @@ func TestFlattenMachineConfigV2Linode(t *testing.T) {
 			SSHUser:                   "ubuntu",
 			StackScript:               "user/stack",
 			StackscriptData:           "{\"foo\":\"bar\"}",
-			UserData:                  "#cloud-config\npackages:\n- htop\n",
+			UserData:                  base64.StdEncoding.EncodeToString([]byte("#cloud-config\npackages:\n- htop\n")),
 			SwapSize:                  "256",
 			Tags:                      "tag1,tag2",
 			Token:                     "token",
@@ -109,7 +110,7 @@ func TestExpandMachineConfigV2Linode(t *testing.T) {
 			SSHUser:                   "ubuntu",
 			StackScript:               "user/stack",
 			StackscriptData:           "{\"foo\":\"bar\"}",
-			UserData:                  "#cloud-config\npackages:\n- htop\n",
+			UserData:                  base64.StdEncoding.EncodeToString([]byte("#cloud-config\npackages:\n- htop\n")),
 			SwapSize:                  "256",
 			Tags:                      "tag1,tag2",
 			Token:                     "token",
