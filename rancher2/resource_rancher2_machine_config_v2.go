@@ -43,6 +43,9 @@ func resourceRancher2MachineConfigV2() *schema.Resource {
 					return fmt.Errorf("linode_config.0.vpc_subnet_id must be set when linode_config.0.use_interfaces is true")
 				}
 			} else {
+				if subnetID, ok := cfg["vpc_subnet_id"].(string); ok && strings.TrimSpace(subnetID) != "" {
+					return fmt.Errorf("linode_config.0.use_interfaces must be true when linode_config.0.vpc_subnet_id is set")
+				}
 				if vpcIP, ok := cfg["vpc_private_ip"].(string); ok && strings.TrimSpace(vpcIP) != "" {
 					return fmt.Errorf("linode_config.0.use_interfaces must be true when linode_config.0.vpc_private_ip is set")
 				}
