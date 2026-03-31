@@ -1,8 +1,6 @@
 package rancher2
 
 import (
-	"encoding/base64"
-
 	norman "github.com/rancher/norman/types"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -104,12 +102,7 @@ func flattenMachineConfigV2Linode(in *MachineConfigV2Linode) []interface{} {
 	}
 
 	if len(in.UserData) > 0 {
-		decoded, err := base64.StdEncoding.DecodeString(in.UserData)
-		if err != nil {
-			obj["user_data"] = in.UserData
-		} else {
-			obj["user_data"] = string(decoded)
-		}
+		obj["user_data"] = in.UserData
 	}
 
 	if len(in.SwapSize) > 0 {
@@ -216,7 +209,7 @@ func expandMachineConfigV2Linode(p []interface{}, source *MachineConfigV2) *Mach
 	}
 
 	if v, ok := in["user_data"].(string); ok && len(v) > 0 {
-		obj.UserData = base64.StdEncoding.EncodeToString([]byte(v))
+		obj.UserData = v
 	}
 
 	if v, ok := in["swap_size"].(string); ok && len(v) > 0 {

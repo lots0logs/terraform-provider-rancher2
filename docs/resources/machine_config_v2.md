@@ -251,7 +251,7 @@ The following attributes are exported:
 * `ssh_user` - (Optional) SSH username. Default `root` (string)
 * `stackscript` - (Optional) Specifies the Linode StackScript to use to create the instance. (string)
 * `stackscript_data` - (Optional) A JSON string specifying data for the selected StackScript. (string)
-* `user_data` - (Optional) Cloud-init user data for the Linode Metadata service; supply plain text and the provider will encode as needed. (string)
+* `user_data` - (Optional) Cloud-init user data for the Linode Metadata service; supply plain text. (string)
 * `swap_size` - (Optional) Linode Instance Swap Size (MB). Default `512` (string)
 * `tags` - (Optional) A comma separated list of tags to apply to the the Linode resource (string)
 * `token` - (Optional/Sensitive) Linode API token. Mandatory on Rancher v2.0.x and v2.1.x. Use `rancher2_cloud_credential` from Rancher v2.2.x (string)
