@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/helper/resource"
@@ -18,6 +19,18 @@ func resourceRancher2MachineConfigV2() *schema.Resource {
 		Update: resourceRancher2MachineConfigV2Update,
 		Delete: resourceRancher2MachineConfigV2Delete,
 		Schema: machineConfigV2Fields(),
+		CustomizeDiff: func(d *schema.ResourceDiff, i interface{}) error {
+			if v, ok := d.Get("linode_config").([]interface{}); ok && len(v) > 0 && v[0] != nil {
+				cfg := v[0].(map[string]interface{})
+				if useInterfaces, ok := cfg["use_interfaces"].(bool); ok && useInterfaces {
+					subnetID, _ := cfg["vpc_subnet_id"].(string)
+					if strings.TrimSpace(subnetID) == "" {
+						return fmt.Errorf("linode_config.vpc_subnet_id must be set when linode_config.use_interfaces is true")
+					}
+				}
+			}
+			return nil
+		},
 		Timeouts: &schema.ResourceTimeout{
 			Create: schema.DefaultTimeout(3 * time.Minute),
 			Update: schema.DefaultTimeout(10 * time.Minute),
