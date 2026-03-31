@@ -82,7 +82,7 @@ func machineConfigV2LinodeFields() map[string]*schema.Schema {
 		"user_data": {
 			Type:        schema.TypeString,
 			Optional:    true,
-			Description: "Cloud-init user data for the Linode Metadata service (inline content, base64 supported)",
+			Description: "Cloud-init user data for the Linode Metadata service (plain text; provider will encode as needed)",
 		},
 		"swap_size": {
 			Type:        schema.TypeString,
